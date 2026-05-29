@@ -3,27 +3,36 @@ package com.example.product_crud_assignment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 
    @Getter
    @Setter
    @NoArgsConstructor
+   @AllArgsConstructor
+   @Entity
+   @Table(name = "products")
    public class Product {
-       private String id;
+       @Id
+       @GeneratedValue(strategy = GenerationType.IDENTITY)
+       private Long id;
+
+       @Column(nullable = false)
        private String name;
+
+       @Column(nullable = false)
        private String description;
+
+       @Column(nullable = false)
        private double price;
+
+        @Column(nullable = false)
        private int quantity;
 
-       public Product(String id, String name, String description, double price, int quantity) {
-           this.id = (id == null || id.isEmpty()) ? UUID.randomUUID().toString() : id;
+       public Product(String name, String description, double price, int quantity) {
            this.name = name;
            this.description = description;
            this.price = price;
            this.quantity = quantity;
-       }
-
-       public Product(String id) {
-        this.id = UUID.randomUUID().toString();
        }
    }
